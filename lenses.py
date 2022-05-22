@@ -18,7 +18,7 @@ class Lens():
     def lowerApproximation(self):
         """Approximate lens"""
         xR, yR = 1000, 0
-        n = 250
+        n = 300
         dy = self.lensTop/n
         print(f"round(self.lensTop) = {round(self.lensTop)}")
         for i in range(1, n):

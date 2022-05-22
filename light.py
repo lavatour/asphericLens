@@ -17,6 +17,7 @@ class Light():
         self.lens = lens
         self.lensSegment = []
 
+
         #self.lens = lens  # Initiate Lens Class This will depend on the type of lens being used
         #self.lens2 = SecondLens()
         #self.xfp = 0   # The points where the ray crosses the focal line
@@ -50,14 +51,50 @@ class Light():
                     #print(f"lenSegment = {self.lensSegment}")
                     slope = (lY2-lY1)/(lX2-lX1)
                     normAngle = math.atan(slope) - math.pi/2
-                    print(f"normAngle = {normAngle * 180 / math.pi}")
-                    print(f"Nslope = {math.tan(normAngle)}")
-                    print(f"slope = {slope}")
-                    print(-1/slope)
+                    #print(f"normAngle = {normAngle * 180 / math.pi}")
+                    #print(f"Nslope = {math.tan(normAngle)}")
+                    #print(f"slope = {slope}")
+                    #print(-1/slope)
 
     def refraction(self, n1, n2):
         """Ray -Lens1 refraction."""
         # Compute Normal Vector
+        #print(self.lensSegment)
+        lX1, lY1 = self.lensSegment[0][0], self.lensSegment[0][1]
+        lX2, lY2 = self.lensSegment[1][0], self.lensSegment[1][1]
+        slope = (lY2 - lY1) / (lX2 - lX1)
+        normAngle = math.atan(slope) - math.pi / 2
+        unitNormalVector = [math.cos(normAngle), math.sin(normAngle)]
+        #print(f"UnitNormVect = {unitNormalVector}")
+        rayUnitVector = [math.cos(self.angle[-1]), math.sin(self.angle[-1])]
+        #print(f"rayUnitVect = {rayUnitVector}")
+
+        #Compute dot product. if angle is obtuse unitNormalVectro wil be multiplied by -1
+        dotProd = LinAlg.dotProd(self, unitNormalVector, rayUnitVector)
+        if dotProd < 0:
+            unitNormalVector = LinAlg.scalarMultiplication(self, -1, unitNormalVector)
+
+        # Use cross product ot find sin(theta)
+        crossProd = LinAlg.crossProd(self, unitNormalVector, rayUnitVector)
+
+        angleOfIncidence = math.sin(crossProd)
+        print(f"angle of incidence = {angleOfIncidence * 180 / math.pi}")
+
+        # Compute angle of refraction
+        angleOfRefraction = n1 * math.asin(math.sin(angleOfIncidence) / n2)
+        print(f"AngleOfRefraction = {angleOfRefraction * 180 / math.pi}")
+
+        normalAngle = math.asin(unitNormalVector[1])
+        print(f"normalAngle = {normalAngle * 180 / math.pi}")
+        lightAngle = normalAngle + angleOfRefraction
+        print(f"lightAngle = {lightAngle * 180 / math.pi}")
+        self.angle.append(lightAngle)
+
+    def rayExtension(self):
+        dx = 1000 * math.cos(self.angle[-1])
+        dy = 1000 * math.sin(self.angle[-1])
+        self.ray.append([self.ray[-1][0] + dx, self.ray[-1][1] + dy])
+
 
 
 

@@ -39,6 +39,8 @@ for lightBeam in light:
 for lightBeam in light:
     lightBeam.refraction(n1, n2)
 
+for lightBeam in light:
+    lightBeam.rayExtension()
 #******************************************8
 toScreen = Display()
 
