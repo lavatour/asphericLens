@@ -20,13 +20,13 @@ print(f"surface1 = {surface1}")
 
 
 """Set number of light sources"""
-numberLightRays = 22
+numberLightRays = 21
 """Initiate Class Light"""
 light = []  #Light List for light objects
 
 """ Create instances of light"""
 for i in range(numberLightRays): #
-    light.append(Light(i, lens1))
+    light.append(Light(i, surface1))
 
 """ LIGHT SOURCE POINTS IN LIGHT OBJECTS """
 for lightBeam in light:
@@ -45,6 +45,7 @@ toScreen = Display()
 toScreen.draw_Lens1(surface1)
 
 for lightBeam in light:
-    toScreen.draw_Source(lightBeam.ray[0])
+    toScreen.draw_Rays(lightBeam.ray)
+
 
 toScreen.display_to_screen()
