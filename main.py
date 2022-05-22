@@ -33,10 +33,11 @@ for lightBeam in light:
     lightBeam.lightSource()
 
 for lightBeam in light:
-    lightBeam.rayLensIntersection(Lens)
+    lightBeam.rayLensIntersection(lens1)
 
-
-
+""" LIGHT LENS1 REFRACTION"""
+for lightBeam in light:
+    lightBeam.refraction(n1, n2)
 
 #******************************************8
 toScreen = Display()

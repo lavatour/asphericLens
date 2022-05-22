@@ -12,12 +12,18 @@ class Lens():
         self.theta2 = 0.0
         self.surface = [[100.0, 0.0]]
         self.lensAngle = math.pi/2
+        self.unitNormalVector = []
 
 
     def lowerApproximation(self):
+        """Approximate lens"""
         xR, yR = 1000, 0
-        for i in range(1, round(self.lensTop)):
-            thetaRay = math.atan(i / self.d)
+        n = 250
+        dy = self.lensTop/n
+        print(f"round(self.lensTop) = {round(self.lensTop)}")
+        for i in range(1, n):
+            y = i * dy
+            thetaRay = math.atan(y / self.d)
             self.theta1 = math.atan((-self.n2 * math.sin(thetaRay)) / (1 - self.n2 * math.cos(thetaRay)))
             self.theta2 = math.asin(math.sin(self.theta1)/ self.n2)
             #sum = thetaRay + self.theta2
@@ -36,7 +42,10 @@ class Lens():
 
             #print(f"theta1, theta2, thetaRay lensAngle, lensSlope, x, y = {self.theta1*180/math.pi,self.theta2*180/math.pi, thetaRay*180/math.pi, self.lensAngle*180/math.pi, lensSlope, x, y}")
 
-            thetaN = self.theta1 + math.pi / 2
+            thetaN = self.theta1 - math.pi / 2
+            x = math.cos(thetaN)
+            y = math.sin(thetaN)
+            self.unitNormalVector = [x, y]
 
 
 

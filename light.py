@@ -25,9 +25,7 @@ class Light():
         """ SOURCE POINTS """
         self.ray.append([self.rayX0, self.rayY0 + self.rayNumber * self.sourceWidth])
         self.ray.append([self.rayX1, self.rayY1 + self.rayNumber * self.sourceWidth])
-
         self.angle.append(0)
-
         return self.ray
 
     def rayLensIntersection(self, lens):
@@ -49,5 +47,18 @@ class Light():
                     #print(f"point = {point}")
                     self.ray.append([point[0], point[1]])
                     self.lensSegment = lineL
-                    print(f"slope = {(lY2-lY1)/(lX2-lX1)}")
+                    #print(f"lenSegment = {self.lensSegment}")
+                    slope = (lY2-lY1)/(lX2-lX1)
+                    normAngle = math.atan(slope) - math.pi/2
+                    print(f"normAngle = {normAngle * 180 / math.pi}")
+                    print(f"Nslope = {math.tan(normAngle)}")
+                    print(f"slope = {slope}")
+                    print(-1/slope)
+
+    def refraction(self, n1, n2):
+        """Ray -Lens1 refraction."""
+        # Compute Normal Vector
+
+
+
 
