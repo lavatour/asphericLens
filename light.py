@@ -78,21 +78,21 @@ class Light():
         crossProd = LinAlg.crossProd(self, unitNormalVector, rayUnitVector)
 
         angleOfIncidence = math.asin(crossProd)
-        print(f"angle of incidence = {angleOfIncidence * 180 / math.pi}")
+        #print(f"angle of incidence = {angleOfIncidence * 180 / math.pi}")
 
         # Compute angle of refraction
         angleOfRefraction = n1 * math.asin(math.sin(angleOfIncidence) / n2)
-        print(f"AngleOfRefraction = {angleOfRefraction * 180 / math.pi}")
+        #print(f"AngleOfRefraction = {angleOfRefraction * 180 / math.pi}")
 
         normalAngle = math.asin(unitNormalVector[1])
-        print(f"normalAngle = {normalAngle * 180 / math.pi}")
+        #print(f"normalAngle = {normalAngle * 180 / math.pi}")
         lightAngle = normalAngle + angleOfRefraction
-        print(f"lightAngle = {lightAngle * 180 / math.pi}")
+        #print(f"lightAngle = {lightAngle * 180 / math.pi}")
         self.angle.append(lightAngle)
 
     def rayExtension(self):
-        dx = 1000 * math.cos(self.angle[-1])
-        dy = 1000 * math.sin(self.angle[-1])
+        dx = 2000 * math.cos(self.angle[-1])
+        dy = 2000 * math.sin(self.angle[-1])
         self.ray.append([self.ray[-1][0] + dx, self.ray[-1][1] + dy])
 
 

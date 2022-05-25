@@ -4,6 +4,7 @@ import math
 
 class Lens():
     def __init__(self, focalLength, lensWidth, n1, n2):
+        self.fp = focalLength
         self.d = 0 - focalLength
         self.lensTop = lensWidth/2
         self.n1 = n1
@@ -20,7 +21,7 @@ class Lens():
         xR, yR = 1000, 0
         n = 300
         dy = self.lensTop/n
-        print(f"round(self.lensTop) = {round(self.lensTop)}")
+        #print(f"round(self.lensTop) = {round(self.lensTop)}")
         for i in range(1, n):
             y = i * dy
             thetaRay = math.atan(y / self.d)
@@ -35,17 +36,30 @@ class Lens():
             x = (mL*xL - yL - mR*xR + yR) / (mL - mR)
             y = mR*(x - xR) + yR
             self.surface.append([x, y])
-
-
             lensSlope = math.tan(self.lensAngle)
-
-
-            #print(f"theta1, theta2, thetaRay lensAngle, lensSlope, x, y = {self.theta1*180/math.pi,self.theta2*180/math.pi, thetaRay*180/math.pi, self.lensAngle*180/math.pi, lensSlope, x, y}")
-
             thetaN = self.theta1 - math.pi / 2
             x = math.cos(thetaN)
             y = math.sin(thetaN)
             self.unitNormalVector = [x, y]
 
 
+    def secondLens(self, lens1, scale):
+        surface1 = lens1.surface
+        print(f"48 surface1 = {surface1}")
+        surf2 =[]
+        front = surface1[0][0]
+        print(f"front = {front}")
+        for element in surface1:
+            vertex = [element[0] - 100, element[1]]
+            vertex2 = [vertex[0]*scale, vertex[1]*scale]
+            fp = self.fp * scale
+            xCorrection = self.fp + fp
+            vertex3 = [-vertex2[0] + xCorrection, -vertex2[1]]
+            surf2.append(vertex3)
 
+            #print(vertex, vertex2, vertex3,"  ", self.fp, "  ", xCorrection)
+        print(f"surf2 = {surf2}")
+        return surf2
+
+
+        pass

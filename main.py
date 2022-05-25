@@ -5,22 +5,27 @@ from lenses import Lens
 from light import Light
 from display import Display
 
-focalLenght = 1000
-lensWidth = 500
+focalLength = 1000
+lensWidth = 1000
 n1 = 1.0
 n2 = 1.5
-
+scale = 0.25
 
 """Create lens1 """
-lens1 = Lens(focalLenght, lensWidth, n1, n2)
+lens1 = Lens(focalLength, lensWidth, n1, n2)
 lens1.lowerApproximation()
 
 surface1 = lens1.surface
 print(f"surface1 = {surface1}")
 
+"""Create lens2"""
+lens2 = Lens(focalLength, lensWidth, n2, n1)
+lens2.secondLens(lens1, scale)
+surface2 = lens2.secondLens(lens1, scale)
+print(f"25 surface2 = {surface2}")
 
 """Set number of light sources"""
-numberLightRays = 21
+numberLightRays = 34
 """Initiate Class Light"""
 light = []  #Light List for light objects
 
@@ -39,6 +44,7 @@ for lightBeam in light:
 for lightBeam in light:
     lightBeam.refraction(n1, n2)
 
+
 for lightBeam in light:
     lightBeam.rayExtension()
 #******************************************8
@@ -46,6 +52,10 @@ toScreen = Display()
 
 #drawLens
 toScreen.draw_Lens1(surface1)
+print(f"surface1 = {surface1}")
+toScreen.draw_Lens1(surface2)
+print(f"surface2** = {surface2}")
+
 
 for lightBeam in light:
     toScreen.draw_Rays(lightBeam.ray)

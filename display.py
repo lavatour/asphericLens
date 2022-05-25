@@ -24,6 +24,7 @@ class Display():
         self.display.fill(self.WHITE)
 
     def draw_Lens1(self, surface):
+        #print(surface)
         for point in surface:
             x = point[0]
             y = point[1]
