@@ -77,7 +77,7 @@ class Light():
         # Use cross product ot find sin(theta)
         crossProd = LinAlg.crossProd(self, unitNormalVector, rayUnitVector)
 
-        angleOfIncidence = math.sin(crossProd)
+        angleOfIncidence = math.asin(crossProd)
         print(f"angle of incidence = {angleOfIncidence * 180 / math.pi}")
 
         # Compute angle of refraction
